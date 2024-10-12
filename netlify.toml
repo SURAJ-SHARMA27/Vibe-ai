@@ -1,0 +1,17 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://www.jiosaavn.com/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/media/ac/*"
+  to = "https://ac.cf.saavncdn.com/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/media/aac/*"
+  to = "https://aac.saavncdn.com/:splat"
+  status = 200
+  force = true
