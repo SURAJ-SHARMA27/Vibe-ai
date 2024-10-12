@@ -21,8 +21,10 @@ const HeroSection = () => {
   ];
   const [inputValue, setInputValue] = useState(''); 
   const [songItem, setSongItem] = useState([]); 
+  
   const handleChange = (e:any) => {
   setInputValue(e.target.value)
+  onSubmit();
   };
   const onSubmit = async () => {
     const formattedQuery = inputValue.split(' ').join('+');

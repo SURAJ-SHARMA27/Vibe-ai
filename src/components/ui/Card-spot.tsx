@@ -16,7 +16,14 @@ interface CardSpotlightDemoProps {
 
     // import { saveAs } from 'file-saver';
     const [loading, setLoading] = useState(false); 
- 
+    const truncateText = (text: string, wordLimit: number): string => {
+      const words = text.split(" ");
+      if (words.length > wordLimit) {
+        return words.slice(0, wordLimit).join(" ") + " ..."; // Add ellipsis
+      }
+      return text; // Return original text if it's within the limit
+    };
+  
     const handleDownload = async () => {
       setLoading(true);
       try {
@@ -80,11 +87,11 @@ interface CardSpotlightDemoProps {
 
   <div className="p-4 relative z-10 flex flex-col items-center justify-center h-full">
     {/* Title */}
-    <p className="text-xl font-bold text-white text-center">{title}</p>
+    <p className="text-xl font-bold text-white text-center">        {truncateText(title, 6)}    </p>
 
     {/* Description */}
     <div className="text-neutral-200 mt-2 text-center"> {/* Center align the description */}
-      {description}
+     {truncateText(description, 6)}
     </div>
 
     {/* Year */}

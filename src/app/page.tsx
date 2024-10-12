@@ -77,7 +77,7 @@ If you liked this app, don’t forget to star the repository on GitHub! It helps
 
       <button className="border px-4 py-1 rounded-lg border-gray-500 text-gray-300">
       <a
-      href="https://github.com/your-repo" // Replace with your GitHub repo URL
+      href="https://github.com/SURAJ-SHARMA27/Vibe-ai" // Replace with your GitHub repo URL
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -122,7 +122,7 @@ Stay updated with my latest projects. This is just the basic version—stay tune
 
 <div className="flex mt-4 space-x-4">
       <a
-        href="https://www.linkedin.com/in/your-profile" // Replace with your LinkedIn URL
+        href="https://www.linkedin.com/in/suraj-sharma-239894223/" // Replace with your LinkedIn URL
         className="px-4 py-2 bg-gray-800 text-white rounded-full"
         target="_blank"
         rel="noopener noreferrer"
@@ -130,7 +130,7 @@ Stay updated with my latest projects. This is just the basic version—stay tune
         LinkedIn
       </a>
       <a
-        href="https://github.com/your-username" // Replace with your GitHub URL
+        href="https://github.com/SURAJ-SHARMA27" // Replace with your GitHub URL
         className="px-4 py-2 bg-gray-800 text-white rounded-full"
         target="_blank"
         rel="noopener noreferrer"
@@ -138,7 +138,7 @@ Stay updated with my latest projects. This is just the basic version—stay tune
         GitHub
       </a>
       <a
-        href="https://github.com/your-username" // Replace with your GitHub URL
+        href="https://suraj-sharma-27.netlify.app/" // Replace with your GitHub URL
         className="px-4 py-2 bg-gray-800 text-white rounded-full"
         target="_blank"
         rel="noopener noreferrer"
