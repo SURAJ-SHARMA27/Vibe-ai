@@ -5,7 +5,7 @@ Welcome to this awesome project where music and code collide! Whether you're her
 
 ---
 
-## 🌟 If You Enjoy the Project, Please Star the Repo!
+## 🌟 If You Enjoy the Project, Star the Repo!
 If you find this project helpful or just like the concept,  [star the repository on GitHub](https://github.com/your-repo-link). Your support keeps this open-source project growing!
 
 ---
