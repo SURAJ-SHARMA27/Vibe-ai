@@ -1,12 +1,12 @@
 
 # 🎧 To all the music listeners out there, this one's for you!
 
-Welcome to this awesome project where music and code collide! This app is powered by [Next.js](https://nextjs.org) and bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). Whether you're here to explore, contribute, or just vibe to some cool tunes, you're in the right place.
+Welcome to this awesome project where music and code collide! Whether you're here to explore, contribute, or just vibe to some cool tunes, you're in the right place.
 
 ---
 
 ## 🌟 If You Enjoy the Project, Please Star the Repo!
-If you find this project helpful or just like the concept, please [star the repository on GitHub](https://github.com/your-repo-link). Your support keeps this open-source project growing!
+If you find this project helpful or just like the concept,  [star the repository on GitHub](https://github.com/your-repo-link). Your support keeps this open-source project growing!
 
 ---
 
@@ -62,8 +62,8 @@ Once the server is running, open [http://localhost:3000](http://localhost:3000) 
 
 Stay connected and follow my journey in the world of tech and music!
 
-- **[LinkedIn](https://www.linkedin.com/in/your-profile)**
-- **[GitHub](https://github.com/your-username)**
+- **[LinkedIn](https://www.linkedin.com/in/suraj-sharma-239894223/)**
+- **[GitHub](https://github.com/SURAJ-SHARMA27)**
 
 Keep up with my latest projects, insights, and updates by following these profiles. More exciting things are coming soon!
 
@@ -75,20 +75,7 @@ We will soon add powerful analytics and visualization features to showcase user 
 
 ---
 
-## Learn More About Next.js
 
-To dive deeper into the world of Next.js, check out these resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - Everything you need to know about Next.js.
-- [Interactive Tutorial](https://nextjs.org/learn) - A hands-on experience to help you master Next.js concepts.
-
----
-
-## 🚀 Deploying the Project
-
-Deploy this Next.js app using the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme), the easiest way to get it up and running. Follow the official [deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
----
 
 ## 🤝 Contributing
 
