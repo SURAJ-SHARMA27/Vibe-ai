@@ -4,18 +4,26 @@ import { CircularProgress } from "@mui/material";
 import axios from 'axios';
 import { useState } from "react";
 import DownloadIcon from '@mui/icons-material/Download';
+import { PlayArrow } from "@mui/icons-material";
 interface CardSpotlightDemoProps {
     title: string;       // Title prop
     description: string; // Description prop
     year: any;      // Footer prop
     url:any;
     mpUrl:any;
+    setPlay:any;
+    play:any;
+    setTrack:any;
+    setPlayingImage:any;
+    setPlayingSong:any;
   }
   
-  export function CardSpotlightDemo({ title, description, year,url,mpUrl }: CardSpotlightDemoProps) {
+  export function CardSpotlightDemo({ title, description, year,url,mpUrl,setPlay,play,setTrack,setPlayingImage, setPlayingSong}: CardSpotlightDemoProps) {
 
     // import { saveAs } from 'file-saver';
     const [loading, setLoading] = useState(false); 
+    const [loadingPlay, setLoadingPlay] = useState(false); 
+
     const truncateText = (text: string, wordLimit: number): string => {
       const words = text.split(" ");
       if (words.length > wordLimit) {
@@ -33,7 +41,6 @@ interface CardSpotlightDemoProps {
         // Fetching download URL  
         const response = await axios.get(apiUrl);
         const downloadUrl = response.data.auth_url;
-        console.log(downloadUrl, "do3n");
     
         // Adjust the download URL to use the proxy
         const proxyDownloadUrl = downloadUrl.replace('https://ac.cf.saavncdn.com', '/media/ac');
@@ -68,7 +75,33 @@ interface CardSpotlightDemoProps {
     };
     
     
+   const handlePlay = async ()=>{
+    setLoadingPlay(true)
+    try {
+      setPlayingSong(title)
+      setPlayingImage(url)
+      const encodedUrl = encodeURIComponent(mpUrl);
+      const apiUrl = `/api/api.php?__call=song.generateAuthToken&url=${encodedUrl}&bitrate=128&api_version=4&_format=json&ctx=web6dot0&_marker=0`;
+  
+      // Fetching download URL  
+      const response = await axios.get(apiUrl);
+      const downloadUrl = response.data.auth_url;
+  
+      // Adjust the download URL to use the proxy
+      const proxyDownloadUrl = downloadUrl.replace('https://ac.cf.saavncdn.com', '/media/ac');
+  
+      // Fetch the file response without specifying responseType
+      const fileResponse = await axios.get(proxyDownloadUrl, { responseType: 'arraybuffer' });
+      setTrack(fileResponse)
+      console.log(fileResponse, "file"); // Inspect the file response
+  
+    } catch (error) {
+      console.error("Error fetching the download link or file:", error);
+    } finally {
+      setLoadingPlay(false);
+    }
 
+   }
 
     return (
 <CardSpotlight className="h-[28rem] w-96">
@@ -81,7 +114,6 @@ interface CardSpotlightDemoProps {
       className="w-24 h-24 object-cover rounded-full border-2 border-white" // Add border for better visibility
     />
   </div>
-
   {/* Overlay effect for better text readability */}
   <div className="absolute inset-0 bg-black opacity-30 rounded-t-lg"></div>
 
@@ -96,21 +128,41 @@ interface CardSpotlightDemoProps {
 
     {/* Year */}
     <p className="text-neutral-300 mt-4 text-sm text-center">{year}</p>
-    <button           onClick={handleDownload}
- className="px-4 py-2 backdrop-blur-sm border bg-emerald-300/10 border-emerald-500/20 text-white mx-auto text-center rounded-full relative mt-4">
-      <span className="flex items-center">
-  {loading ? (
-    <CircularProgress size={22} color="inherit" className="mr-2 ml-2" />
-  ) : (
-    <>
-      Download <DownloadIcon style={{color: '#595959'}} className="ml-2" />
-    </>
-  )}
-</span>
+    <div className="flex justify-center space-x-4 mt-4"> {/* Flex container for horizontal alignment */}
+  <button
+    onClick={handleDownload}
+    className="px-4 py-2 backdrop-blur-sm border bg-emerald-300/10 border-emerald-500/20 text-white text-center rounded-full relative"
+  >
+    <span className="flex items-center">
+      {loading ? (
+        <CircularProgress size={22} color="inherit" className="mr-2 ml-2" />
+      ) : (
+        <>
+          Download <DownloadIcon style={{ color: '#595959' }} className="ml-2" />
+        </>
+      )}
+    </span>
+    <div className="absolute inset-x-0 h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-emerald-500 to-transparent" />
+  </button>
 
+  <button
+    onClick={handlePlay}
+    className="px-4 py-2 backdrop-blur-sm border bg-emerald-300/10 border-emerald-500/20 text-white text-center rounded-full relative"
+  >
+    <span className="flex items-center">
+      {loadingPlay ? (
+        <CircularProgress size={22} color="inherit" className="mr-2 ml-2" />
+      ) : (
+        <>
+          Play <PlayArrow style={{ color: '#595959' }} className="ml-2" /> {/* Use appropriate icon */}
+        </>
+      )}
+    </span>
+    <div className="absolute inset-x-0 h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-emerald-500 to-transparent" />
+  </button>
+</div>
 
-          <div className="absolute inset-x-0  h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-emerald-500 to-transparent" />
-        </button>
+ 
   </div>
 </CardSpotlight>
 

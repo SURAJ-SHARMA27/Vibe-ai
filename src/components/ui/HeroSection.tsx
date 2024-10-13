@@ -10,8 +10,21 @@ import { PlaceholdersAndVanishInput } from "./placeholders-and-vanish-input";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HeadsetIcon from '@mui/icons-material/Headset';
 import { CardSpotlightDemo } from "./Card-spot";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { IconButton, Slider } from '@mui/material';
+import { PlayArrow, Pause } from '@mui/icons-material';
+const rotatingStyle = {
+  animation: 'spin 30s linear infinite',
+};
 const HeroSection = () => {
+  const [play,setPlay]=useState(false)
+  const [progress, setProgress] = useState(0);  // Tracks the current progress
+  const [track, setTrack] = useState<any>({ data: [] });
+  const [playingSong,setPlayingSong]=useState("");
+  const [playingImage,setPlayingImage]=useState("");
+  const [isHovered, setIsHovered] = useState(false);
+
+
   const placeholders = [
     "Search for your favorite song...",
     "Find the latest trending tracks...",
@@ -21,7 +34,59 @@ const HeroSection = () => {
   ];
   const [inputValue, setInputValue] = useState(''); 
   const [songItem, setSongItem] = useState([]); 
-  
+  const audioRef = useRef<any>(null);
+  useEffect(() => {
+    const stopPreviousAudio = () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current = null;
+        setPlay(false); // Ensure previous audio is stopped, setting state to false
+      }
+    };
+
+    const playNewAudio = () => {
+      const blob = new Blob([track.data], { type: 'audio/mp4' });
+      const audioUrl = window.URL.createObjectURL(blob);
+      const audio = new Audio(audioUrl);
+      audio.preload = 'auto';
+
+      audio.play().then(() => setPlay(true)); // Set state to true when audio starts playing
+      audioRef.current = audio;
+
+      // Update progress bar as audio plays
+      audio.addEventListener('timeupdate', () => {
+        setProgress((audio.currentTime / audio.duration) * 100);
+      });
+    };
+
+    stopPreviousAudio();  // Stop any previous audio
+    playNewAudio();       // Play new audio
+
+    return () => stopPreviousAudio(); // Cleanup on unmount or track change
+  }, [track]);
+
+  // Handle play/pause toggle
+  const handleTogglePlayPause = () => {
+    if (audioRef.current) {
+      if (play) {
+        audioRef.current.pause();
+        setPlay(false);
+      } else {
+        audioRef.current.play();
+        setPlay(true);
+      }
+    }
+  };
+
+  // Handle slider change to adjust the progress of the song
+  const handleSliderChange = (event:any, newValue:any) => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = (newValue / 100) * audioRef.current.duration;
+      setProgress(newValue);
+    }
+  };
+
   const handleChange = (e:any) => {
   setInputValue(e.target.value)
   onSubmit();
@@ -51,7 +116,7 @@ const HeroSection = () => {
         console.error('Error fetching data:', error);
     }
 };
-
+ 
   return (
     <>
       <div
@@ -103,9 +168,77 @@ Download your favorite HD songs instantly, completely free! No signups, no login
 
         </div>
       </div>
-      
+      {playingSong!='' &&(
+        <div
+      style={{
+        backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.2)', // Change background on hover
+        backdropFilter: 'blur(15px)',                // Increased blur for a more glassy effect
+        borderRadius: '0.5rem',                      // Rounded corners
+        padding: '1rem',                             // Padding
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)', // Shadow for depth
+        transition: 'background-color 0.4s ease, transform 0.4s ease',
+        transform: isHovered ? 'scale(1.05)' : 'scale(1)'  // Smooth transition for hover
+      }}
+      className="w-60 text-white mx-auto"
+      onMouseEnter={() => setIsHovered(true)}      // Set hover state to true on mouse enter
+      onMouseLeave={() => setIsHovered(false)}     // Set hover state to false on mouse leave
+    >
+      {/* Hollow Song Image with Play/Pause Button */}
+      <div className="relative flex flex-col items-center ">
+        {playingImage && (
+          <img
+            src={playingImage}
+            alt="Song cover"
+            className="rounded-full w-24 h-24 border-4 border-white opacity-80"
+            style={{ objectFit: 'cover', ...(play ? rotatingStyle : {}) }} // Apply rotation when playing
+          />
+        )}
+
+        {/* Play/Pause Button at the bottom center of the image */}
+        <IconButton
+          onClick={handleTogglePlayPause}
+          className="absolute z-10 text-white mt-3"
+          style={{ borderRadius: '50%' }} // Optional: Add a background to the button
+        >
+          {play ? <Pause style={{color:"rgba(255, 255, 255, 0.4)"}} fontSize="large" /> : <PlayArrow style={{color:"rgba(255, 255, 255, 0.4)"}} fontSize="large" />}
+        </IconButton>
+      </div>
+
+      {/* Progress Slider */}
+      <Slider
+  value={progress}
+  onChange={handleSliderChange}
+  aria-labelledby="continuous-slider"
+  sx={{
+    color: '#3B30C8', // Change this to your site's primary color
+    '& .MuiSlider-thumb': {
+      backgroundColor: '#fff', // Thumb color
+      '&:hover': {
+        boxShadow: 'inherit',
+      },
+    },
+    '& .MuiSlider-track': {
+      backgroundColor: 'rgba(255, 255, 255, 0.4)', // Track color
+    },
+    '& .MuiSlider-rail': {
+      backgroundColor: 'rgba(255, 255, 255, 0.2)', // Rail color
+    },
+  }}
+/>
+
+
+      {/* Song Title */}
+      <p className="mt-1 font-normal text-base md:text-lg text-neutral-300 max-w-lg text-center">
+        {playingSong}
+      </p>
+    </div>)}
+
+
+
+
       {songItem.length > 0 && (
   <div className="flex justify-center items-center gap-4 mt-10 mb-20 justify-center">
+
     <div className="flex flex-wrap justify-center"> {/* Added gap-4 */}
       {songItem.map((song:any, index) => (
         <div style={{margin:"5px"}}>
@@ -115,6 +248,11 @@ Download your favorite HD songs instantly, completely free! No signups, no login
             url={song.image}
             year={song.year}
             mpUrl={song.mpUrl}
+            setPlay={setPlay}
+            play={play}
+            setTrack={setTrack}
+            setPlayingSong={setPlayingSong}
+            setPlayingImage={setPlayingImage}
           />
           </div>
       ))}
@@ -154,3 +292,11 @@ Download your favorite HD songs instantly, completely free! No signups, no login
 
 
 export default HeroSection;
+const styles = `
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+`;
+
+document.head.appendChild(document.createElement("style")).textContent = styles;
