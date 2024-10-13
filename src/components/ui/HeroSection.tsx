@@ -13,6 +13,7 @@ import { CardSpotlightDemo } from "./Card-spot";
 import { useEffect, useRef, useState } from "react";
 import { IconButton, Slider } from '@mui/material';
 import { PlayArrow, Pause } from '@mui/icons-material';
+import "./hero.css"
 const rotatingStyle = {
   animation: 'spin 30s linear infinite',
 };
@@ -189,7 +190,7 @@ Download your favorite HD songs instantly, completely free! No signups, no login
           <img
             src={playingImage}
             alt="Song cover"
-            className="rounded-full w-24 h-24 border-4 border-white opacity-80"
+            className={`rounded-full w-24 h-24 border-4 border-white opacity-80 ${play ? 'rotating' : ''}`} // Apply rotation class when playing
             style={{ objectFit: 'cover', ...(play ? rotatingStyle : {}) }} // Apply rotation when playing
           />
         )}
@@ -197,7 +198,7 @@ Download your favorite HD songs instantly, completely free! No signups, no login
         {/* Play/Pause Button at the bottom center of the image */}
         <IconButton
           onClick={handleTogglePlayPause}
-          className="absolute z-10 text-white mt-3"
+          className="absolute z-10 text-white mt-5"
           style={{ borderRadius: '50%' }} // Optional: Add a background to the button
         >
           {play ? <Pause style={{color:"rgba(255, 255, 255, 0.4)"}} fontSize="large" /> : <PlayArrow style={{color:"rgba(255, 255, 255, 0.4)"}} fontSize="large" />}
@@ -292,11 +293,4 @@ Download your favorite HD songs instantly, completely free! No signups, no login
 
 
 export default HeroSection;
-const styles = `
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-`;
-
-document.head.appendChild(document.createElement("style")).textContent = styles;
+ 
