@@ -190,7 +190,7 @@ Download your favorite HD songs instantly, completely free! No signups, no login
           <img
             src={playingImage}
             alt="Song cover"
-            className={`rounded-full w-24 h-24 border-4 border-white opacity-80 ${play ? 'rotating' : ''}`} // Apply rotation class when playing
+            className={`rounded-full w-24 h-24 border-2 border-white opacity-80 ${play ? 'rotating' : ''}`} // Apply rotation class when playing
             style={{ objectFit: 'cover', ...(play ? rotatingStyle : {}) }} // Apply rotation when playing
           />
         )}
