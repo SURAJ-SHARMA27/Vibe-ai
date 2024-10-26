@@ -22,6 +22,8 @@ const FavtSection = () => {
   const [playingImage,setPlayingImage]=useState("");
   const [isHovered, setIsHovered] = useState(false);
   const isLoggedIn = useSelector((state: RootState) => state.login.isLoggedIn);
+  const userInfo = useSelector((state: RootState) => state.login.userInfo);
+console.log(userInfo,"userInfo")
   const favtList=useSelector((state:RootState)=>state.favorites.tracks);
   const token=useSelector((state: RootState) => state.login.token);
  console.log(Object.values(favtList),"favtList")
@@ -32,8 +34,9 @@ const FavtSection = () => {
    const [songItem, setSongItem] = useState([]); 
    const handleSongEnd = () => {
     console.log("Song ended");
-    // You can add any additional logic here, like autoplaying the next song
-  };
+    
+
+};
   const audioRef = useRef<any>(null);
   useEffect(() => {
     const stopPreviousAudio = () => {
@@ -95,6 +98,7 @@ const FavtSection = () => {
     }
   };
 
+  const name=localStorage.getItem('firstName');
  
  
   return (
@@ -111,7 +115,7 @@ const FavtSection = () => {
    className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
  >
    <h2 className="text-white text-2xl md:text-6xl font-bold text-center mt-20">
-   Welcome Back, Suraj
+   Welcome Back, {name}
    </h2>
    <p className="text-white text-sm md:text-2xl max-w-xl mt-6 text-center">
 Listen to your favourite song here for free.

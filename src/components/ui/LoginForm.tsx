@@ -57,6 +57,7 @@ export function LoginForm({ showLoginModal, setShowLoginModal }: LoginForm) {
     
             const data = await response.json();
             dispatch(login(data.token));
+            localStorage.setItem('firstName',data.firstName)
             // Close modal and reset form on success
             setShowLoginModal(false);
             setFormData(initialFormData);

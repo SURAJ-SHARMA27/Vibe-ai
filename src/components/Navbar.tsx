@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { logout } from "@/store/loginSlice";
+import toast from "react-hot-toast";
 
 function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
@@ -14,6 +15,7 @@ function Navbar({ className }: { className?: string }) {
 
   const handleLogout = () => {
     dispatch(logout()); // Dispatch the logout action
+    toast.success("Logout Successful")
   };
   return (
     <div className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}>

@@ -32,6 +32,8 @@ const loginSlice = createSlice({
       state.token = null; // Clear the token
       state.userInfo = null; // Clear user info
       localStorage.removeItem('token'); // Remove token from localStorage
+      localStorage.removeItem('firstName');
+
     },
     checkAuth: (state) => {
       const token = localStorage.getItem('token');
