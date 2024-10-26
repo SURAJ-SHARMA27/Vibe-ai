@@ -160,7 +160,7 @@ return (
     <>
     
       <div
-        className="h-[80vh] md:h-[90vh] w-full flex flex-col justify-center items-center relative overflow-hidden mx-auto py-10 md:py-0"
+        className="h-[90vh] md:h-[100vh] w-full flex flex-col justify-center items-center relative overflow-hidden mx-auto py-10 md:py-0"
       >
         <Spotlight
           className="-top-40 left-0 md:left-60 md:-top-20"

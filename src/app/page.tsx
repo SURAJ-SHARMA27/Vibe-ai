@@ -146,7 +146,7 @@ Stay updated with my latest projects. This is just the basic version—stay tune
 
     
 
-<footer className="w-full flex items-center justify-center py-3 mb-4 mt-20">
+<footer className="w-full flex items-center justify-center py-3 mb-10 mt-20">
         <Link
           className="flex items-center gap-1 text-current"
           href="https://www.linkedin.com/in/suraj-sharma-239894223/"

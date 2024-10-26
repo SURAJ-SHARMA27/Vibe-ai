@@ -153,7 +153,7 @@ interface CardSpotlightDemoProps {
     <img
       src={url}
       alt={title}
-      style={{ zIndex: 9998 }}
+      style={{ zIndex: 9991 }}
       className="w-24 h-24 object-cover rounded-full border-2 border-white" // Add border for better visibility
     />
   </div>
