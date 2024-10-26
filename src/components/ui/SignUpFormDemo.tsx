@@ -47,7 +47,7 @@ export function SignupFormDemo({ showModal, setShowModal }: SignupFormDemoProps)
     toast.promise(
       new Promise(async (resolve, reject) => {
         try {
-          const response = await fetch("http://localhost:5000/api/user/signup", {
+          const response = await fetch("https://pulse-backend-production.up.railway.app/api/user/signup", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
