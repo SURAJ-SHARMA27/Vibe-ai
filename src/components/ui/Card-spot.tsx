@@ -2,9 +2,15 @@
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { CircularProgress } from "@mui/material";
 import axios from 'axios';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DownloadIcon from '@mui/icons-material/Download';
-import { PlayArrow } from "@mui/icons-material";
+import { LineStyle, PlayArrow } from "@mui/icons-material";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { useDispatch, useSelector } from "react-redux";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { RootState } from "@/store/store";
+import toast from "react-hot-toast";
+import { setFavoriteTracks } from "@/store/favouriteSlice";
 interface CardSpotlightDemoProps {
     title: string;       // Title prop
     description: string; // Description prop
@@ -16,17 +22,21 @@ interface CardSpotlightDemoProps {
     setTrack:any;
     setPlayingImage:any;
     setPlayingSong:any;
+    id:string;
   }
   
-  export function CardSpotlightDemo({ title, description, year,url,mpUrl,setPlay,play,setTrack,setPlayingImage, setPlayingSong}: CardSpotlightDemoProps) {
+  export function CardSpotlightDemo({ title, description, year,url,mpUrl,setPlay,play,setTrack,setPlayingImage, setPlayingSong,id}: CardSpotlightDemoProps) {
+    const token = useSelector((state: RootState) => state.login.token);
+    const favtList=useSelector((state:RootState)=>state.favorites.tracks);
+  const dispatch = useDispatch();
 
-    // import { saveAs } from 'file-saver';
+ 
     const [loading, setLoading] = useState(false); 
     const [loadingPlay, setLoadingPlay] = useState(false); 
 
     const truncateText = (text: string, wordLimit: number): string => {
-      const words = text.split(" ");
-      if (words.length > wordLimit) {
+      const words = text?.split(" ");
+      if (words?.length > wordLimit) {
         return words.slice(0, wordLimit).join(" ") + " ..."; // Add ellipsis
       }
       return text; // Return original text if it's within the limit
@@ -73,7 +83,40 @@ interface CardSpotlightDemoProps {
         setLoading(false);
       }
     };
-    
+    const handleFavt = async () => {
+      toast.promise(
+        new Promise<string>(async (resolve, reject) => {
+          try {
+            const response = await axios.post(
+              'http://localhost:5000/api/user/save-track',
+              { title, description, year, url, mpUrl, id },
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  'Content-Type': 'application/json',
+                },
+              }
+            );
+            dispatch(setFavoriteTracks(response.data.favtTracks))
+            if (response.data.message.includes('added')) {
+              console.log('Track added to favorites');
+               resolve('Track added to favorites'); // Success message for "added"
+            } else if (response.data.message.includes('removed')) {
+              console.log('Track removed from favorites');
+               resolve('Track removed from favorites'); // Success message for "removed"
+            }
+          } catch (error) {
+            console.error('Failed to update favorite track:', error);
+            reject(error); // Reject promise on error
+          }
+        }),
+        {
+          loading: "Processing...",
+          success: (message: string) => message, // Use the resolved message directly as a string
+          error: "Failed to update favorite track. Please try again.",
+        }
+      );
+    };
     
    const handlePlay = async ()=>{
     setLoadingPlay(true)
@@ -144,6 +187,27 @@ interface CardSpotlightDemoProps {
     </span>
     <div className="absolute inset-x-0 h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-emerald-500 to-transparent" />
   </button>
+  <button
+  className="px-4 py-2 backdrop-blur-sm border bg-pink-300/10 border-pink-500/20 text-white text-center rounded-full relative hover:bg-pink-500/30 hover:bg-gradient-to-r hover:from-pink-500/30 hover:to-rose-500/30 transition-all duration-300"
+  onClick={handleFavt}
+>
+  <span className="flex items-center">
+    {loading ? (
+      <CircularProgress size={22} color="inherit" className="mr-2 ml-2" />
+    ) : (
+      <>
+        {favtList[id] ? ( 
+          // Render solid-filled FavoriteIcon if ID exists in favtList
+          <FavoriteIcon style={{ color: '#FF6B6B' }} />
+        ) : ( 
+          // Render outlined FavoriteBorderIcon if ID doesn't exist in favtList
+          <FavoriteBorderIcon style={{ color: '#FF6B6B' }} />
+        )}
+      </>
+    )}
+  </span>
+  <div className="absolute inset-x-0 h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-pink-500 to-transparent" />
+</button>
 
   <button
     onClick={handlePlay}

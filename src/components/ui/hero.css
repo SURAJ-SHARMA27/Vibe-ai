@@ -11,3 +11,6 @@
     animation: spin 1s linear infinite; /* Adjust timing and repetition as needed */
   }
   
+  .loginbutton{
+    color:"red";
+  }

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { Spotlight } from "./Spotlight";
-import { Button } from "./moving-border";
+import {  ButtonUI } from "./moving-border";
 import { ContainerScroll } from "./container-scroll-animation";
 import Image from "next/image";
 import axios from 'axios';
@@ -14,6 +14,13 @@ import { useEffect, useRef, useState } from "react";
 import { IconButton, Slider } from '@mui/material';
 import { PlayArrow, Pause } from '@mui/icons-material';
 import "./hero.css"
+import toast from 'react-hot-toast';
+import { SignupFormDemo } from "./SignUpFormDemo";
+import { LoginForm } from "./LoginForm";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { Vortex } from "./vortex";
+import { setFavoriteTracks } from "@/store/favouriteSlice";
 const rotatingStyle = {
   animation: 'spin 30s linear infinite',
 };
@@ -24,9 +31,39 @@ const HeroSection = () => {
   const [playingSong,setPlayingSong]=useState("");
   const [playingImage,setPlayingImage]=useState("");
   const [isHovered, setIsHovered] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const isLoggedIn = useSelector((state: RootState) => state.login.isLoggedIn);
+  const token=useSelector((state: RootState) => state.login.token);
+ 
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const openLoginModal = () => {
+    setShowLoginModal(true);
+  };
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    const fetchFavoriteTracks = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/user/favtList', {
+          headers: {
+            Authorization: `Bearer ${token}`, // Attach token in headers
+          },
+        });
+         dispatch(setFavoriteTracks(response.data.favtTracks)); // Dispatch action to store in Redux
 
-  const placeholders = [
+      } catch (error) {
+        console.error('Error fetching favorite tracks:', error);
+      }
+    };
+
+    if (isLoggedIn) {
+      fetchFavoriteTracks();
+    } 
+  }, [isLoggedIn]);
+   const placeholders = [
     "Search for your favorite song...",
     "Find the latest trending tracks...",
     "Looking for that perfect playlist song?",
@@ -109,11 +146,11 @@ const HeroSection = () => {
             image: item.image,
             year:item.year,
             mpUrl:item.more_info.encrypted_media_url,
+            id:item.id
         }));
 
         setSongItem(extractedData);  // Store extracted data in state
-        console.log(extractedData,"extractedData")
-    } catch (error) {
+     } catch (error) {
         console.error('Error fetching data:', error);
     }
 };
@@ -121,7 +158,7 @@ const HeroSection = () => {
   return (
     <>
       <div
-        className="h-[80vh] md:h-[60vh] w-full flex flex-col justify-center items-center relative overflow-hidden mx-auto py-10 md:py-0"
+        className="h-[80vh] md:h-[70vh] w-full flex flex-col justify-center items-center relative overflow-hidden mx-auto py-10 md:py-0"
       >
         <Spotlight
           className="-top-40 left-0 md:left-60 md:-top-20"
@@ -154,7 +191,7 @@ Download your favorite HD songs instantly, completely free! No signups, no login
           </div>
           <p className="mt-10 font-normal text-base md:text-lg text-neutral-300 max-w-lg mx-auto flex items-center justify-center">
           Vibe AI - made with &nbsp;
-          <HeadsetIcon style={{color:"orange",fontSize:"30px"}}/> &nbsp;
+          <HeadsetIcon style={{color:"#0b84bb",fontSize:"30px"}}/> &nbsp;
            user vibes &nbsp;
 
    {/* <img src="https://user-images.githubusercontent.com/48355572/263672801-5929885f-9227-4be3-a686-ea3fbeff13d2.gif" width="23px" height="23px"/> */}
@@ -168,7 +205,62 @@ Download your favorite HD songs instantly, completely free! No signups, no login
 
 
         </div>
-      </div>
+       { !isLoggedIn &&(
+        <div className="mt-10 text-center">
+  <ButtonUI
+    borderRadius="1.75rem"
+    className="bg-[#1a1a1a] text-black dark:text-white border-neutral-200 dark:border-slate-800"
+    duration={4000}
+    onClick={openModal} // Call openModal on button click
+  >
+    Sign Up
+  </ButtonUI>
+  <div className="mt-4">
+  <span className="text-md text-gray-600 dark:text-gray-400">
+  Already have an account?{" "}
+  <button
+    style={{
+      color: "#0b84bb", // Tailwind's gray-600
+      transition: "color 0.3s", // Optional for a smooth transition
+    }}
+    onClick={openLoginModal}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.color = "white"; // Change to bright red on hover
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.color = "#0b84bb"; // Revert to gray-600
+    }}
+   >
+  <b>  Log In</b>
+  </button>
+</span>
+
+
+  </div>
+</div>
+       )}
+
+          <SignupFormDemo showModal={showModal} setShowModal={setShowModal} />
+          <LoginForm  showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />
+          </div>
+        {isLoggedIn &&(
+ <div className="w-full mx-auto rounded-md  h-[20rem] overflow-hidden">
+ <Vortex
+   backgroundColor="black"
+   className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
+ >
+   <h2 className="text-white text-2xl md:text-6xl font-bold text-center">
+   Welcome Back, Suraj
+   </h2>
+   <p className="text-white text-sm md:text-2xl max-w-xl mt-6 text-center">
+   You can now save, share, and download HD songs for free using the power of Vibe AI.
+
+   </p>
+   
+ </Vortex>
+</div>
+        )} 
+   
       {playingSong!='' &&(
         <div
       style={{
@@ -254,6 +346,8 @@ Download your favorite HD songs instantly, completely free! No signups, no login
             setTrack={setTrack}
             setPlayingSong={setPlayingSong}
             setPlayingImage={setPlayingImage}
+            id={song.id}
+          
           />
           </div>
       ))}
@@ -286,7 +380,6 @@ Download your favorite HD songs instantly, completely free! No signups, no login
 </div>
 </div>
 
-   
     </>
   );
 };

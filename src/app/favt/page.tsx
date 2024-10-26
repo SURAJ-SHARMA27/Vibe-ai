@@ -2,15 +2,16 @@ import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import { CardSpotlightDemo } from "@/components/ui/Card-spot";
 import Cofounders from "@/components/ui/Cofounders";
 import { Cover } from "@/components/ui/cover";
+import { ExpandableCardDemo } from "@/components/ui/ExpandableCardDemo";
+import FavtSection from "@/components/ui/FavtSection";
 import { Features } from "@/components/ui/Features";
-import HeroSection from "@/components/ui/HeroSection";
 import { Meteors } from "@/components/ui/meteors";
 import { WavyBackground } from "@/components/ui/wavy-background";
 import Image from "next/image";
 import Link from "next/link";
 import { Toaster } from "react-hot-toast";
- 
-export default function Home() {
+
+const page = () => {
   return (
     <div className="min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02]">
             <Toaster
@@ -21,12 +22,11 @@ export default function Home() {
                 color: '#fff'
               },}}
             />
-     <HeroSection/>
+     <FavtSection/>
+{/* <ExpandableCardDemo/> */}
  
    
-<h1 className="text-4xl md:text-4xl lg:text-6xl font-semibold max-w-7xl mx-auto text-center mt-6 relative z-20 py-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white">
-Amplify Your Music Discovery with <Cover> Vibe AI</Cover>
-      </h1>
+              
       {/* <div className="bg-black height-[40rem] mt-40 relative w-full text-center">
     <h1 className="mt-30 mb-30 text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
       Meet our founders
@@ -81,7 +81,6 @@ If you liked this app, don’t forget to star the repository on GitHub! It helps
       <Meteors number={20} />
     </div>
   </div>
-
   {/* Card 2 - Different content */}
   <div className="w-full relative max-w-xs h-92"> {/* Set a fixed height */}
     <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-purple-500 to-pink-500 transform scale-[0.80] rounded-full blur-3xl" />
@@ -158,6 +157,7 @@ Stay updated with my latest projects. This is just the basic version—stay tune
       </footer>
 
     </div>
-    
-  );
+  )
 }
+
+export default page
