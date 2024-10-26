@@ -23,20 +23,59 @@ const FavtSection = () => {
   const [isHovered, setIsHovered] = useState(false);
   const isLoggedIn = useSelector((state: RootState) => state.login.isLoggedIn);
   const userInfo = useSelector((state: RootState) => state.login.userInfo);
-console.log(userInfo,"userInfo")
   const favtList=useSelector((state:RootState)=>state.favorites.tracks);
   const token=useSelector((state: RootState) => state.login.token);
- console.log(Object.values(favtList),"favtList")
  const FavMap=Object.values(favtList);
   const dispatch = useDispatch();
  
   
-   const [songItem, setSongItem] = useState([]); 
-   const handleSongEnd = () => {
-    console.log("Song ended");
-    
+    const handleSongEnd = async () => {
+const randomElement = FavMap[Math.floor(Math.random() * FavMap.length)];
+useEffect(() => {
+  const fetchFavoriteTracks = async () => {
+    try {
+      const response = await axios.get('https://pulse-backend-production.up.railway.app/api/user/favtList', {
+        headers: {
+          Authorization: `Bearer ${token}`, // Attach token in headers
+        },
+      });
+       dispatch(setFavoriteTracks(response.data.favtTracks)); // Dispatch action to store in Redux
+
+    } catch (error) {
+      console.error('Error fetching favorite tracks:', error);
+    }
+  };
+
+  if (isLoggedIn) {
+    fetchFavoriteTracks();
+  } 
+}, [isLoggedIn]);
+try {
+  setPlayingSong(randomElement.title)
+  setPlayingImage(randomElement.url)
+  const encodedUrl = encodeURIComponent(randomElement.mpUrl);
+  const apiUrl = `/api/api.php?__call=song.generateAuthToken&url=${encodedUrl}&bitrate=128&api_version=4&_format=json&ctx=web6dot0&_marker=0`;
+
+  // Fetching download URL  
+  const response = await axios.get(apiUrl);
+  const downloadUrl = response.data.auth_url;
+
+  // Adjust the download URL to use the proxy
+  const proxyDownloadUrl = downloadUrl.replace('https://ac.cf.saavncdn.com', '/media/ac');
+
+  // Fetch the file response without specifying responseType
+  const fileResponse = await axios.get(proxyDownloadUrl, { responseType: 'arraybuffer' });
+  setTrack(fileResponse)
+  console.log(fileResponse, "file"); // Inspect the file response
+
+} catch (error) {
+  console.error("Error fetching the download link or file:", error);
+} finally {
+}
 
 };
+
+
   const audioRef = useRef<any>(null);
   useEffect(() => {
     const stopPreviousAudio = () => {
