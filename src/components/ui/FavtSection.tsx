@@ -28,28 +28,28 @@ const FavtSection = () => {
  const FavMap=Object.values(favtList);
   const dispatch = useDispatch();
  
+  useEffect(() => {
+    const fetchFavoriteTracks = async () => {
+      try {
+        const response = await axios.get('https://pulse-backend-production.up.railway.app/api/user/favtList', {
+          headers: {
+            Authorization: `Bearer ${token}`, // Attach token in headers
+          },
+        });
+         dispatch(setFavoriteTracks(response.data.favtTracks)); // Dispatch action to store in Redux
   
+      } catch (error) {
+        console.error('Error fetching favorite tracks:', error);
+      }
+    };
+  
+    if (isLoggedIn) {
+      fetchFavoriteTracks();
+    } 
+  }, [isLoggedIn]);
     const handleSongEnd = async () => {
 const randomElement = FavMap[Math.floor(Math.random() * FavMap.length)];
-useEffect(() => {
-  const fetchFavoriteTracks = async () => {
-    try {
-      const response = await axios.get('https://pulse-backend-production.up.railway.app/api/user/favtList', {
-        headers: {
-          Authorization: `Bearer ${token}`, // Attach token in headers
-        },
-      });
-       dispatch(setFavoriteTracks(response.data.favtTracks)); // Dispatch action to store in Redux
 
-    } catch (error) {
-      console.error('Error fetching favorite tracks:', error);
-    }
-  };
-
-  if (isLoggedIn) {
-    fetchFavoriteTracks();
-  } 
-}, [isLoggedIn]);
 try {
   setPlayingSong(randomElement.title)
   setPlayingImage(randomElement.url)
@@ -232,30 +232,30 @@ Listen to your favourite song here for free.
 
 
 
-      {FavMap.length > 0 && (
-  <div className="flex justify-center items-center gap-4 mt-10 mb-20 justify-center">
+        {FavMap.length > 0 && (
+    <div className="flex justify-center items-center gap-4 mt-10 mb-20 justify-center">
 
-    <div className="flex flex-wrap justify-center"> {/* Added gap-4 */}
-      {FavMap.map((song:any, index) => (
-        <div style={{margin:"5px"}}>
-          <CardSpotlightDemo
-            title={song.title}
-            description={song.description}
-            url={song.url}
-            year={song.year}
-            mpUrl={song.mpUrl}
-            setPlay={setPlay}
-            play={play}
-            setTrack={setTrack}
-            setPlayingSong={setPlayingSong}
-            setPlayingImage={setPlayingImage}
-            id={song.id}
-          />
-          </div>
-      ))}
+      <div className="flex flex-wrap justify-center"> {/* Added gap-4 */}
+        {FavMap.map((song:any, index) => (
+          <div style={{margin:"5px"}}>
+            <CardSpotlightDemo
+              title={song.title}
+              description={song.description}
+              url={song.url}
+              year={song.year}
+              mpUrl={song.mpUrl}
+              setPlay={setPlay}
+              play={play}
+              setTrack={setTrack}
+              setPlayingSong={setPlayingSong}
+              setPlayingImage={setPlayingImage}
+              id={song.id}
+            />
+            </div>
+        ))}
+      </div>
     </div>
-  </div>
-)}
+  )}
 
   <div className="flex flex-wrap justify-center gap-4 mt-10 mb-20">
      <div className="flex flex-col md:flex-row justify-center gap-4 ">

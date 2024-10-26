@@ -45,9 +45,9 @@ function Navbar({ className }: { className?: string }) {
           <>
             {/* Dummy navbar items displayed when not logged in */}
             <Link href="/">
-              <MenuItem setActive={setActive} active={active} item='About'>
+              <MenuItem setActive={setActive} active={active} item='Favourites'>
                 <div className="flex flex-col space-y-4 text-sm">
-                  <HoveredLink href="/"> Why So Curious? 🧐</HoveredLink>
+                  <HoveredLink href="/"> Login first 🧐</HoveredLink>
                 </div>
               </MenuItem>
             </Link>
