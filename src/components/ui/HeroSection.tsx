@@ -154,8 +154,9 @@ const HeroSection = () => {
         console.error('Error fetching data:', error);
     }
 };
- const name=localStorage.getItem('firstName');
-  return (
+const name = typeof window !== "undefined" ? localStorage.getItem('firstName') : null;
+
+return (
     <>
       <div
         className="h-[80vh] md:h-[70vh] w-full flex flex-col justify-center items-center relative overflow-hidden mx-auto py-10 md:py-0"

@@ -98,8 +98,8 @@ console.log(userInfo,"userInfo")
     }
   };
 
-  const name=localStorage.getItem('firstName');
- 
+  const name = typeof window !== "undefined" ? localStorage.getItem('firstName') : null;
+
  
   return (
     <>
