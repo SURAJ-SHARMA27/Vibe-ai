@@ -20,7 +20,9 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body>
         <StoreProvider> {/* Wrap the app with StoreProvider */}
-        
+          <div className="relative w-full flex items-center justify-center" style={{ zIndex: 9997 }}>
+            <Navbar />
+          </div>
 
           {/* Google Analytics Scripts */}
           <Script

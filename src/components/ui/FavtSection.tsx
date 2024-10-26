@@ -13,7 +13,6 @@ import { Vortex } from "./vortex";
 import { setFavoriteTracks } from "@/store/favouriteSlice";
 import { ButtonUI } from "./moving-border";
 import Link from "next/link";
-import Navbar from "../Navbar";
 const rotatingStyle = {
   animation: 'spin 30s linear infinite',
 };
@@ -147,9 +146,7 @@ try {
  
   return (
     <>
-     <div className="relative w-full flex items-center justify-center" style={{ zIndex: 9997 }}>
-            <Navbar />
-          </div>
+   
         {isLoggedIn &&(
  <div className="w-full mx-auto rounded-md  h-[20rem] overflow-hidden">
      <Spotlight
@@ -261,7 +258,7 @@ Listen to your favourite song here for free.
       ))}
     </div>
   ) : (
-    <div className="flex flex-col items-center text-center mt-20">
+    <div className="flex flex-col items-center text-center">
        <Link href="/">
       <ButtonUI
     borderRadius="1.75rem"
