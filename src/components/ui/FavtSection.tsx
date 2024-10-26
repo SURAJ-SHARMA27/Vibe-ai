@@ -48,12 +48,14 @@ const FavtSection = () => {
     } 
   }, [isLoggedIn]);
     const handleSongEnd = async () => {
-const randomElement = FavMap[Math.floor(Math.random() * FavMap.length)];
+const currentIndex = FavMap.findIndex(song => song.title === playingSong);
+const nextIndex = (currentIndex + 1) % FavMap.length;
+const nextEle = FavMap[nextIndex];
 
 try {
-  setPlayingSong(randomElement.title)
-  setPlayingImage(randomElement.url)
-  const encodedUrl = encodeURIComponent(randomElement.mpUrl);
+  setPlayingSong(nextEle.title)
+  setPlayingImage(nextEle.url)
+  const encodedUrl = encodeURIComponent(nextEle.mpUrl);
   const apiUrl = `/api/api.php?__call=song.generateAuthToken&url=${encodedUrl}&bitrate=128&api_version=4&_format=json&ctx=web6dot0&_marker=0`;
 
   // Fetching download URL  
