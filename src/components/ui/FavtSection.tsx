@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { Vortex } from "./vortex";
 import { setFavoriteTracks } from "@/store/favouriteSlice";
+import { ButtonUI } from "./moving-border";
+import Link from "next/link";
 const rotatingStyle = {
   animation: 'spin 30s linear infinite',
 };
@@ -234,30 +236,43 @@ Listen to your favourite song here for free.
 
 
 
-        {FavMap.length > 0 && (
-    <div className="flex justify-center items-center gap-4 mt-10 mb-20 justify-center">
-
-      <div className="flex flex-wrap justify-center"> {/* Added gap-4 */}
-        {FavMap.map((song:any, index) => (
-          <div style={{margin:"5px"}}>
-            <CardSpotlightDemo
-              title={song.title}
-              description={song.description}
-              url={song.url}
-              year={song.year}
-              mpUrl={song.mpUrl}
-              setPlay={setPlay}
-              play={play}
-              setTrack={setTrack}
-              setPlayingSong={setPlayingSong}
-              setPlayingImage={setPlayingImage}
-              id={song.id}
-            />
-            </div>
-        ))}
-      </div>
+    <div className="flex justify-center items-center gap-4 mt-10 mb-20">
+  {FavMap.length > 0 ? (
+    <div className="flex flex-wrap justify-center gap-4">
+      {FavMap.map((song, index) => (
+        <div key={song.id} style={{ margin: "5px" }}>
+          <CardSpotlightDemo
+            title={song.title}
+            description={song.description}
+            url={song.url}
+            year={song.year}
+            mpUrl={song.mpUrl}
+            setPlay={setPlay}
+            play={play}
+            setTrack={setTrack}
+            setPlayingSong={setPlayingSong}
+            setPlayingImage={setPlayingImage}
+            id={song.id}
+          />
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div className="flex flex-col items-center text-center">
+       <Link href="/">
+      <ButtonUI
+    borderRadius="1.75rem"
+    className="bg-[#1a1a1a] text-black dark:text-white border-neutral-200 dark:border-slate-800"
+    duration={4000}
+  >
+ Add Favourites
+ 
+   </ButtonUI>
+   </Link>
     </div>
   )}
+</div>
+
 
   <div className="flex flex-wrap justify-center gap-4 mt-10 mb-20">
      <div className="flex flex-col md:flex-row justify-center gap-4 ">

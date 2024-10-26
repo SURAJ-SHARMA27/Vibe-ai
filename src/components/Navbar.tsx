@@ -20,8 +20,6 @@ function Navbar({ className }: { className?: string }) {
   return (
     <div className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}>
       <Menu setActive={setActive}>
-        {isLoggedIn ? (
-          <>
             <Link href="/">
               <MenuItem setActive={setActive} active={active} item='Home'>
               </MenuItem>
@@ -30,48 +28,25 @@ function Navbar({ className }: { className?: string }) {
             <Link href="/favt">
               <MenuItem setActive={setActive} active={active} item='Favourites'>
                 <div className="flex flex-col space-y-4 text-sm">
-                  <HoveredLink href="/favt">Favourites</HoveredLink>
+                  {isLoggedIn?(<HoveredLink href="/favt">Favourites</HoveredLink>):(<HoveredLink href="/"> Login first 🧐</HoveredLink>)}
                 </div>
               </MenuItem>
             </Link>
 
             <Link href="/" onClick={handleLogout}>
+            {isLoggedIn?(
               <MenuItem setActive={setActive} active={active} item='Logout'>
               
               </MenuItem>
-            </Link>
-          </>
-        ) : (
-          <>
-            {/* Dummy navbar items displayed when not logged in */}
-            <Link href="/">
-              <MenuItem setActive={setActive} active={active} item='Favourites'>
-                <div className="flex flex-col space-y-4 text-sm">
-                  <HoveredLink href="/"> Login first 🧐</HoveredLink>
-                </div>
-              </MenuItem>
-            </Link>
-            <MenuItem setActive={setActive} active={active} item='Services'>
+            ):(
+              <MenuItem setActive={setActive} active={active} item='Pricing'>
               <div className="flex flex-col space-y-4 text-sm">
-                <HoveredLink href="/">Magic Happens Here ✨</HoveredLink>
+                <HoveredLink href="/">Free? Just Kidding! 😂</HoveredLink>
               </div>
             </MenuItem>
-            <Link href="/">
-              <MenuItem setActive={setActive} active={active} item='Tools'>
-                <div className="flex flex-col space-y-4 text-sm">
-                  <HoveredLink href="/">Tools? What Tools? 🤔</HoveredLink>
-                </div>
-              </MenuItem>
+            )}  
             </Link>
-            <Link href="/">
-              <MenuItem setActive={setActive} active={active} item='Pricing'>
-                <div className="flex flex-col space-y-4 text-sm">
-                  <HoveredLink href="/">Free? Just Kidding! 😂</HoveredLink>
-                </div>
-              </MenuItem>
-            </Link>
-          </>
-        )}
+         
       </Menu>
     </div>
   );
