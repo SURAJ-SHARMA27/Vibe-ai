@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { Vortex } from "./vortex";
 import { setFavoriteTracks } from "@/store/favouriteSlice";
+import Navbar from "../Navbar";
 const rotatingStyle = {
   animation: 'spin 30s linear infinite',
 };
@@ -158,6 +159,9 @@ const name = typeof window !== "undefined" ? localStorage.getItem('firstName') :
 
 return (
     <>
+      <div className="relative w-full flex items-center justify-center" style={{ zIndex: 9997 }}>
+            <Navbar />
+          </div>
       <div
         className="h-[80vh] md:h-[70vh] w-full flex flex-col justify-center items-center relative overflow-hidden mx-auto py-10 md:py-0"
       >
