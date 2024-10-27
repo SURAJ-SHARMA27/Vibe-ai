@@ -147,7 +147,7 @@ interface CardSpotlightDemoProps {
    }
 
     return (
-<CardSpotlight className="h-[28rem]" id="cardspot">
+<CardSpotlight className="h-[28rem]"   id="cardspot">
   {/* Image at the top */}
   <div className="flex justify-center mt-4">
     <img
