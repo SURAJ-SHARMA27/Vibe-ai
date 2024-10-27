@@ -132,6 +132,7 @@ const HeroSection = () => {
     if (value && value.length === 3) {
       toast('Scroll down to see results!', {
         icon: '👇',
+        position:"bottom-center",
       });
     }
   
