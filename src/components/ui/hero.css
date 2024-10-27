@@ -18,9 +18,8 @@
     width: 24rem; /* Default width */
   }
   
-  @media (max-width: 350px) {
+  @media (max-width: 400px) {
     #cardspot {
       width: 20rem; /* Width for screens less than 350px */
     }
   }
-  
