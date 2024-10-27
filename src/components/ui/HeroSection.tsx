@@ -125,10 +125,19 @@ const HeroSection = () => {
     }
   };
 
-  const handleChange = (e:any) => {
-  setInputValue(e.target.value)
-  onSubmit();
+  const handleChange = (e: any) => {
+    const value = e.target.value;
+    setInputValue(value);
+  
+    if (value && value.length === 3) {
+      toast('Scroll down to see results!', {
+        icon: '👇',
+      });
+    }
+  
+    onSubmit();
   };
+  
   const onSubmit = async () => {
     const formattedQuery = inputValue.split(' ').join('+');
 
