@@ -14,3 +14,13 @@
   .loginbutton{
     color:"red";
   }
+  #cardspot {
+    width: 24rem; /* Default width */
+  }
+  
+  @media (max-width: 350px) {
+    #cardspot {
+      width: 20rem; /* Width for screens less than 350px */
+    }
+  }
+  

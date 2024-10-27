@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import { CardSpotlightDemo } from "@/components/ui/Card-spot";
 import Cofounders from "@/components/ui/Cofounders";
@@ -12,6 +13,10 @@ import { Toaster } from "react-hot-toast";
  
 export default function Home() {
   return (
+    <>
+      <div className="relative w-full flex items-center justify-center" style={{ zIndex: 9997 }}>
+            <Navbar />
+          </div>
     <div className="min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02]">
             <Toaster
             toastOptions={{
@@ -158,6 +163,6 @@ Stay updated with my latest projects. This is just the basic version—stay tune
       </footer>
 
     </div>
-    
+    </>
   );
 }
