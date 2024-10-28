@@ -47,7 +47,7 @@ const HeroSection = () => {
   useEffect(() => {
     const fetchFavoriteTracks = async () => {
       try {
-        const response = await axios.get('https://pulse-backend-production.up.railway.app/api/user/favtList', {
+        const response = await axios.get('/backend-api/api/user/favtList', {
           headers: {
             Authorization: `Bearer ${token}`, // Attach token in headers
           },
@@ -254,6 +254,7 @@ Download your favorite HD songs instantly, completely free! No signups, no login
 
           <SignupFormDemo showModal={showModal} setShowModal={setShowModal} />
           <LoginForm  showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />
+
           </div>
         {isLoggedIn &&(
  <div className="w-full mx-auto rounded-md  h-[20rem] overflow-hidden">

@@ -33,7 +33,7 @@ const FavtSection = () => {
   useEffect(() => {
     const fetchFavoriteTracks = async () => {
       try {
-        const response = await axios.get('https://pulse-backend-production.up.railway.app/api/user/favtList', {
+        const response = await axios.get('/backend-api/api/user/favtList', {
           headers: {
             Authorization: `Bearer ${token}`, // Attach token in headers
           },

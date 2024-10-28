@@ -88,7 +88,7 @@ interface CardSpotlightDemoProps {
         new Promise<string>(async (resolve, reject) => {
           try {
             const response = await axios.post(
-              'https://pulse-backend-production.up.railway.app/api/user/save-track',
+              '/backend-api/api/user/save-track',
               { title, description, year, url, mpUrl, id },
               {
                 headers: {

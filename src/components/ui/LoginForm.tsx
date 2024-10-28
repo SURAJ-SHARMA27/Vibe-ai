@@ -49,7 +49,7 @@ export function LoginForm({ showLoginModal, setShowLoginModal }: LoginForm) {
       toast.promise(
         new Promise(async (resolve, reject) => {
           try {
-            const response = await fetch("https://pulse-backend-production.up.railway.app/api/user/login", {
+            const response = await fetch("/backend-api/api/user/login", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

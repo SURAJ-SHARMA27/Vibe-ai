@@ -15,3 +15,9 @@
   to = "https://aac.saavncdn.com/:splat"
   status = 200
   force = true
+
+[[redirects]]
+  from = "/backend-api/*"
+  to = "https://pulse-backend-production.up.railway.app/:splat"
+  status = 200
+  force = true
