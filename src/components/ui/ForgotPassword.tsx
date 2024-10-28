@@ -41,7 +41,7 @@ export function ForgotPassword({ showForgotModal, setShowForgotModal }: ForgotPa
       toast.promise(
         new Promise(async (resolve, reject) => {
           try {
-            const response = await fetch("http://localhost:5000/forgetpassword", {
+            const response = await fetch("https://pulse-backend-production.up.railway.app/forgetpassword", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

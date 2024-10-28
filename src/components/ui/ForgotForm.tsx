@@ -43,7 +43,7 @@ export function ForgotForm() {
       toast.promise(
         new Promise(async (resolve, reject) => {
           try {
-            const response = await axios.post(`http://localhost:5000/resetpassword`, {
+            const response = await axios.post(`https://pulse-backend-production.up.railway.app/resetpassword`, {
               token:searchParams.token, // Send the token in the request body
               newPassword:formData.password,
             });
