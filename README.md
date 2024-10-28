@@ -106,9 +106,9 @@ We welcome contributions! Here’s how you can help:
 ### Disclaimer
 This project is non-commercial and intended strictly for educational and exploratory purposes.
 
-- **Data Ownership**: All data used by this app is owned by [Organization Name]. This project does not intend to infringe upon any copyrights or intellectual property rights of [Organization Name].
+- **Data Ownership**: Song data used by this app is owned by JioSavn. This project does not intend to infringe upon any copyrights or intellectual property rights of JioSavn.
 
-- **Removal Request**: If [Organization Name] would like this data removed, please contact [your email], and it will be taken down immediately.
+- **Removal Request**: If JioSavn would like this data removed, please contact surajrace21@gmail.com, and it will be taken down immediately.
 
 
 Thanks for stopping by! Don’t forget to ⭐️ the repo if you like the project and feel free to reach out with suggestions or feedback.
