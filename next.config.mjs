@@ -17,6 +17,11 @@ const nextConfig = {
         source: '/media/aac/:path*',
         destination: 'https://aac.saavncdn.com/:path*',
       },
+      {
+        // Proxy for media files from aac.saavncdn.com
+        source: '/backend-api/:path*',
+        destination: 'https://pulse-backend-production.up.railway.app/:path*',
+      },
     ];
   },
 };
