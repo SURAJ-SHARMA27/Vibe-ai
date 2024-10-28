@@ -30,7 +30,7 @@ function Navbar({ className }: { className?: string }) {
             <Link href={isLoggedIn ? "/favt" : "/"}>
             <MenuItem setActive={setActive} active={active} item='Favourites'>
                 <div className="flex flex-col space-y-4 text-sm">
-                  {isLoggedIn?(<HoveredLink href="/favt">Favourites</HoveredLink>):(<HoveredLink href="/"> Login first 🧐</HoveredLink>)}
+                  {isLoggedIn?(<HoveredLink href="/favt">Favourites</HoveredLink>):(<HoveredLink href="/"> Login first 👻</HoveredLink>)}
                 </div>
               </MenuItem>
             </Link>
