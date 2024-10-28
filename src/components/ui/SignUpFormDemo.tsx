@@ -8,9 +8,10 @@ import { toast } from "react-hot-toast";  // Import the toast
 interface SignupFormDemoProps {
   showModal: boolean;
   setShowModal: (show: boolean) => void;
+  setShowLoginModal: (show:boolean)=>void;
 }
 
-export function SignupFormDemo({ showModal, setShowModal }: SignupFormDemoProps) {
+export function SignupFormDemo({ showModal, setShowModal,setShowLoginModal }: SignupFormDemoProps) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -65,7 +66,7 @@ export function SignupFormDemo({ showModal, setShowModal }: SignupFormDemoProps)
           // Close modal and reset form on success
           setShowModal(false);
           setFormData(initialFormData);
-  
+          setShowLoginModal(true);
           resolve(data);  // Resolve promise on success
         } catch (error) {
           console.error("Error during signup:", error);

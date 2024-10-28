@@ -136,7 +136,7 @@ export function LoginForm({ showLoginModal, setShowLoginModal }: LoginForm) {
                 Log In &rarr;
                 <BottomGradient />
               </button>
-               <p style={{fontSize:"14px",float:"right",cursor:"pointer"}} onClick={handleForgotModal} className="mt-2 mb-2">Forgot Password</p>
+               <p style={{fontSize:"14px",float:"right",cursor:"pointer",color:"white"}} onClick={handleForgotModal} className="mt-2 mb-2">Forgot Password</p>
               <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
             </form>
 

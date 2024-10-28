@@ -252,7 +252,7 @@ Download your favorite HD songs instantly, completely free! No signups, no login
 </div>
        )}
 
-          <SignupFormDemo showModal={showModal} setShowModal={setShowModal} />
+          <SignupFormDemo showModal={showModal} setShowModal={setShowModal} setShowLoginModal={setShowLoginModal}/>
           <LoginForm  showLoginModal={showLoginModal} setShowLoginModal={setShowLoginModal} />
 
           </div>
