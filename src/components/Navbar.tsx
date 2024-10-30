@@ -35,7 +35,7 @@ function Navbar({ className }: { className?: string }) {
               </MenuItem>
             </Link>
 
-            <Link href="/" onClick={handleLogout}>
+            <Link href="/" onClick={isLoggedIn ? handleLogout : undefined}>
             {isLoggedIn?(
               <MenuItem setActive={setActive} active={active} item='Logout'>
               
